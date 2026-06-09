@@ -12,7 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://api.nspublic.xyz/3cha',
         changeOrigin: true,
       },
     },
