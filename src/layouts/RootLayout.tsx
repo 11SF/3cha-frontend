@@ -1,5 +1,6 @@
-import { Outlet, Link } from '@tanstack/react-router'
+import { Outlet, Link, useLocation } from '@tanstack/react-router'
 import { Users, LayoutDashboard, CalendarOff } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -9,24 +10,32 @@ const navItems = [
 ] as const
 
 export function RootLayout() {
+  const location = useLocation()
   return (
     <div className="min-h-screen bg-[var(--background)]">
-      <header className="border-b border-[var(--border)] bg-[var(--card)] sticky top-0 z-10">
+      <header className="border-b border-[var(--border)] bg-[var(--card)]/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
-          <span className="font-bold text-lg tracking-tight">3Cha Portal</span>
+          <motion.span
+            className="font-extrabold text-lg tracking-tight text-[var(--primary)]"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+          >
+            3Cha Portal
+          </motion.span>
           <nav className="flex gap-1">
             {navItems.map(({ to, label, icon: Icon }) => (
               <Link
                 key={to}
                 to={to}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors',
-                  'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]'
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200',
+                  'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]'
                 )}
                 activeProps={{
                   className: cn(
-                    'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors',
-                    'bg-[var(--accent)] text-[var(--accent-foreground)] font-medium'
+                    'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200',
+                    'bg-[var(--accent)]/15 text-[var(--accent)]'
                   ),
                 }}
               >
@@ -38,7 +47,17 @@ export function RootLayout() {
         </div>
       </header>
       <main className="max-w-3xl mx-auto px-4 py-8">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
     </div>
   )

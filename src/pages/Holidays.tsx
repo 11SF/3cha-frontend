@@ -1,15 +1,26 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { CalendarOff, Plus, Trash2 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { holidayApi, type Holiday } from '@/api/holiday'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 
+const listVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+}
+
+const rowVariant = {
+  hidden: { opacity: 0, x: -10 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.22, ease: 'easeOut' } },
+}
+
 function HolidayRow({ holiday, onDelete }: { holiday: Holiday; onDelete: (id: string) => void }) {
   const date = new Date(holiday.holidayDate.includes('T') ? holiday.holidayDate : holiday.holidayDate + 'T00:00:00')
   return (
-    <div className="flex items-center gap-3 py-3 border-b border-[var(--border)] last:border-0">
+    <motion.div variants={rowVariant} className="flex items-center gap-3 py-3 border-b border-[var(--border)] last:border-0">
       <div className="flex-1 min-w-0">
         <p className="font-medium">{holiday.name}</p>
         <p className="text-xs text-[var(--muted-foreground)]">
@@ -24,7 +35,7 @@ function HolidayRow({ holiday, onDelete }: { holiday: Holiday; onDelete: (id: st
       >
         <Trash2 size={15} />
       </Button>
-    </div>
+    </motion.div>
   )
 }
 
@@ -73,30 +84,36 @@ export function HolidaysPage() {
         </p>
       </div>
 
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">เพิ่มวันหยุด</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <Input
-              type="date"
-              value={date}
-              onChange={e => setDate(e.target.value)}
-              required
-            />
-            <Input
-              placeholder="ชื่อวันหยุด เช่น วันสงกรานต์"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-            <Button type="submit" disabled={!name.trim() || !date || create.isPending} className="w-full">
-              <Plus size={16} />
-              เพิ่มวันหยุด
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25 }}
+      >
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">เพิ่มวันหยุด</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <Input
+                type="date"
+                value={date}
+                onChange={e => setDate(e.target.value)}
+                required
+              />
+              <Input
+                placeholder="ชื่อวันหยุด เช่น วันสงกรานต์"
+                value={name}
+                onChange={e => setName(e.target.value)}
+              />
+              <Button type="submit" disabled={!name.trim() || !date || create.isPending} className="w-full">
+                <Plus size={16} />
+                เพิ่มวันหยุด
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       {isLoading ? (
         <p className="text-sm text-[var(--muted-foreground)]">กำลังโหลด...</p>
@@ -109,9 +126,11 @@ export function HolidaysPage() {
               </h2>
               <Card>
                 <CardContent className="pt-2 pb-1">
-                  {upcoming.map(h => (
-                    <HolidayRow key={h.id} holiday={h} onDelete={id => remove.mutate(id)} />
-                  ))}
+                  <motion.div variants={listVariants} initial="hidden" animate="show">
+                    {upcoming.map(h => (
+                      <HolidayRow key={h.id} holiday={h} onDelete={id => remove.mutate(id)} />
+                    ))}
+                  </motion.div>
                 </CardContent>
               </Card>
             </div>
@@ -124,9 +143,11 @@ export function HolidaysPage() {
               </h2>
               <Card className="opacity-60">
                 <CardContent className="pt-2 pb-1">
-                  {past.slice(0, 5).map(h => (
-                    <HolidayRow key={h.id} holiday={h} onDelete={id => remove.mutate(id)} />
-                  ))}
+                  <motion.div variants={listVariants} initial="hidden" animate="show">
+                    {past.slice(0, 5).map(h => (
+                      <HolidayRow key={h.id} holiday={h} onDelete={id => remove.mutate(id)} />
+                    ))}
+                  </motion.div>
                 </CardContent>
               </Card>
             </div>
