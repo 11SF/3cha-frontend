@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 
 function HolidayRow({ holiday, onDelete }: { holiday: Holiday; onDelete: (id: string) => void }) {
-  const date = new Date(holiday.holidayDate + 'T00:00:00')
+  const date = new Date(holiday.holidayDate.includes('T') ? holiday.holidayDate : holiday.holidayDate + 'T00:00:00')
   return (
     <div className="flex items-center gap-3 py-3 border-b border-[var(--border)] last:border-0">
       <div className="flex-1 min-w-0">
