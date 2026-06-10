@@ -21,7 +21,7 @@ export function RootLayout() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
           >
-            3Cha Portal
+            3Cha Party
           </motion.span>
           <nav className="flex gap-1">
             {navItems.map(({ to, label, icon: Icon }) => (

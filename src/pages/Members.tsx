@@ -207,7 +207,7 @@ export function MembersPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h1 className="text-4xl font-black tracking-tight leading-none">ทีมเรา</h1>
+        <h1 className="text-4xl font-black tracking-tight leading-none">ทีม</h1>
         {members.length > 0 && (
           <p className="text-sm text-(--muted-foreground) mt-2 font-semibold">
             {members.length} คนในทีม
