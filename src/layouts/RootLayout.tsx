@@ -1,17 +1,14 @@
-import { Outlet, Link, useRouter } from '@tanstack/react-router'
+import { Outlet, Link } from '@tanstack/react-router'
 import { Users, LayoutDashboard, CalendarOff } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { to: '/', label: 'Queue Board', icon: LayoutDashboard },
+  { to: '/queue', label: 'Queue Board', icon: LayoutDashboard },
   { to: '/members', label: 'Members', icon: Users },
   { to: '/holidays', label: 'Holidays', icon: CalendarOff },
 ] as const
 
 export function RootLayout() {
-  const router = useRouter()
-  const path = router.state.location.pathname
-
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <header className="border-b border-[var(--border)] bg-[var(--card)] sticky top-0 z-10">
@@ -24,10 +21,14 @@ export function RootLayout() {
                 to={to}
                 className={cn(
                   'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors',
-                  path === to
-                    ? 'bg-[var(--accent)] text-[var(--accent-foreground)] font-medium'
-                    : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]'
+                  'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]'
                 )}
+                activeProps={{
+                  className: cn(
+                    'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors',
+                    'bg-[var(--accent)] text-[var(--accent-foreground)] font-medium'
+                  ),
+                }}
               >
                 <Icon size={15} />
                 {label}

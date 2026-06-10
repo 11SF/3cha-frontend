@@ -1,4 +1,4 @@
-import { createRouter, createRoute, createRootRoute } from '@tanstack/react-router'
+import { createRouter, createRoute, createRootRoute, redirect } from '@tanstack/react-router'
 import { RootLayout } from './layouts/RootLayout'
 import { QueueBoardPage } from './pages/QueueBoard'
 import { MembersPage } from './pages/Members'
@@ -11,6 +11,12 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
+  beforeLoad: () => { throw redirect({ to: '/queue' }) },
+})
+
+const queueRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/queue',
   component: QueueBoardPage,
 })
 
@@ -26,7 +32,7 @@ const holidaysRoute = createRoute({
   component: HolidaysPage,
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, membersRoute, holidaysRoute])
+const routeTree = rootRoute.addChildren([indexRoute, queueRoute, membersRoute, holidaysRoute])
 
 export const router = createRouter({ routeTree })
 
