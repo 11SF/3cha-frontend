@@ -46,7 +46,7 @@ export function RootLayout() {
           </nav>
         </div>
       </header>
-      <main className="max-w-3xl mx-auto px-4 py-8">
+      <main className={location.pathname === '/queue' ? 'w-full' : 'max-w-3xl mx-auto px-4 py-8'}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

@@ -21,27 +21,6 @@
   --radius: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: oklch(0.165 0.022 52);
-    --foreground: oklch(0.95 0.01 80);
-    --card: oklch(0.22 0.025 52);
-    --card-foreground: oklch(0.95 0.01 80);
-    --primary: oklch(0.88 0.04 78);
-    --primary-foreground: oklch(0.22 0.025 52);
-    --secondary: oklch(0.28 0.025 52);
-    --secondary-foreground: oklch(0.95 0.01 80);
-    --muted: oklch(0.28 0.025 52);
-    --muted-foreground: oklch(0.65 0.04 75);
-    --accent: oklch(0.65 0.12 42);
-    --accent-foreground: oklch(0.98 0.004 84);
-    --destructive: oklch(0.704 0.191 22.216);
-    --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.65 0.12 42);
-  }
-}
 
 * {
   border-color: var(--border);

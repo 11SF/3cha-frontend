@@ -9,6 +9,7 @@ export interface QueueEntry {
   memberId: string
   memberName: string
   avatarColor: string
+  confluenceUrl?: string
 }
 
 export const queueApi = {

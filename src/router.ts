@@ -1,38 +1,55 @@
-import { createRouter, createRoute, createRootRoute, redirect } from '@tanstack/react-router'
+import { createRouter, createRoute, createRootRoute, redirect, Outlet } from '@tanstack/react-router'
 import { RootLayout } from './layouts/RootLayout'
 import { QueueBoardPage } from './pages/QueueBoard'
 import { MembersPage } from './pages/Members'
 import { HolidaysPage } from './pages/Holidays'
+import { TodayBoardPage } from './pages/TodayBoard'
 
-const rootRoute = createRootRoute({
+// Root passes through — no layout
+const rootRoute = createRootRoute({ component: Outlet })
+
+// Pathless layout route wrapping all nav pages
+const navRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  id: '_nav',
   component: RootLayout,
 })
 
 const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => navRoute,
   path: '/',
   beforeLoad: () => { throw redirect({ to: '/queue' }) },
 })
 
 const queueRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => navRoute,
   path: '/queue',
   component: QueueBoardPage,
 })
 
 const membersRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => navRoute,
   path: '/members',
   component: MembersPage,
 })
 
 const holidaysRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => navRoute,
   path: '/holidays',
   component: HolidaysPage,
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, queueRoute, membersRoute, holidaysRoute])
+// Standalone display — no nav
+const todayRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/today',
+  component: TodayBoardPage,
+})
+
+const routeTree = rootRoute.addChildren([
+  navRoute.addChildren([indexRoute, queueRoute, membersRoute, holidaysRoute]),
+  todayRoute,
+])
 
 export const router = createRouter({ routeTree })
 
