@@ -27,10 +27,10 @@ function urgencyStyle(daysUntil: number): { background: string; color: string } 
 function SectionLabel({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-3 py-5">
-      <span className="text-[10px] font-black uppercase tracking-[0.22em] text-[var(--muted-foreground)] flex-shrink-0">
+      <span className="text-[10px] font-black uppercase tracking-[0.22em] text-(--muted-foreground) shrink-0">
         {label}
       </span>
-      <div className="flex-1 h-px bg-[var(--border)]" />
+      <div className="flex-1 h-px bg-(--border)" />
     </div>
   )
 }
@@ -51,21 +51,21 @@ function ConfirmModal({
             onClick={onClose}
           />
           <motion.div
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-[var(--border)] bg-[var(--card)] shadow-2xl"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-(--border) bg-(--card) shadow-2xl"
             initial={{ opacity: 0, scale: 0.88, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 8 }}
             transition={{ type: 'spring', stiffness: 340, damping: 26 }}
           >
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--accent)] mb-2">ยืนยันการลบ</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-(--accent) mb-2">ยืนยันการลบ</p>
             <h2 className="text-xl font-black tracking-tight leading-snug">{title}</h2>
-            <p className="text-sm text-[var(--muted-foreground)] mt-2 leading-relaxed">{body}</p>
+            <p className="text-sm text-(--muted-foreground) mt-2 leading-relaxed">{body}</p>
             <div className="flex gap-2 mt-6">
               <Button variant="ghost" className="flex-1" onClick={onClose} disabled={loading}>
                 ยกเลิก
               </Button>
               <Button
-                className="flex-1 gap-1.5 bg-[var(--destructive)] text-white hover:opacity-90"
+                className="flex-1 gap-1.5 bg-(--destructive) text-white hover:opacity-90"
                 onClick={onConfirm}
                 disabled={loading}
               >
@@ -165,23 +165,23 @@ export function HolidaysPage() {
                 }}
               />
             </div>
-            <span className="text-2xl font-semibold text-[var(--muted-foreground)]">{yearLabel}</span>
+            <span className="text-2xl font-semibold text-(--muted-foreground)">{yearLabel}</span>
           </div>
-          <p className="text-xs text-[var(--muted-foreground)] mt-3 font-medium">
+          <p className="text-xs text-(--muted-foreground) mt-3 font-medium">
             กดวันที่เพื่อเพิ่มวันหยุด · กดวันหยุดเพื่อลบ
           </p>
         </div>
 
         <div className="flex items-center gap-1 mt-1">
           <button onClick={prevMonth}
-            className="p-2 rounded-xl hover:bg-[var(--muted)] transition-colors text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
+            className="p-2 rounded-xl hover:bg-(--muted) transition-colors text-(--muted-foreground) hover:text-(--foreground)">
             <ChevronLeft size={18} />
           </button>
           <button onClick={nextMonth}
-            className="p-2 rounded-xl hover:bg-[var(--muted)] transition-colors text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
+            className="p-2 rounded-xl hover:bg-(--muted) transition-colors text-(--muted-foreground) hover:text-(--foreground)">
             <ChevronRight size={18} />
           </button>
-          <div className="w-px h-5 bg-[var(--border)] mx-1" />
+          <div className="w-px h-5 bg-(--border) mx-1" />
           <Button size="sm" className="gap-1.5 rounded-xl"
             onClick={() => { setAddDate(''); setAddName(''); setShowAdd(true) }}>
             <Plus size={14} />
@@ -252,7 +252,7 @@ export function HolidaysPage() {
                     transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                     className={cn(
                       'aspect-square rounded-2xl flex flex-col items-center justify-start pt-2 pb-1 px-1 gap-0.5 relative overflow-hidden cursor-pointer',
-                      !holiday && !isWeekend && 'hover:bg-[var(--muted)]/70',
+                      !holiday && !isWeekend && 'hover:bg-(--muted)/70',
                       isPast && !holiday && 'opacity-40',
                     )}
                     style={bgStyle}
@@ -282,11 +282,11 @@ export function HolidaysPage() {
 
                     {/* Day number */}
                     <span className={cn(
-                      'w-7 h-7 flex items-center justify-center rounded-full text-xs font-black leading-none flex-shrink-0 relative z-10',
-                      isToday && 'bg-[var(--primary)] text-[var(--primary-foreground)]',
+                      'w-7 h-7 flex items-center justify-center rounded-full text-xs font-black leading-none shrink-0 relative z-10',
+                      isToday && 'bg-(--primary) text-(--primary-foreground)',
                       holiday && !isToday && 'text-[oklch(0.40_0.14_40)]',
                       isWeekend && !holiday && !isToday && 'text-[oklch(0.50_0.14_36)]',
-                      !holiday && !isToday && !isWeekend && 'text-[var(--foreground)]',
+                      !holiday && !isToday && !isWeekend && 'text-(--foreground)',
                     )}>
                       {day}
                     </span>
@@ -329,25 +329,25 @@ export function HolidaysPage() {
             return (
               <motion.div
                 key={h.id}
-                className="flex items-center gap-4 py-3 border-b border-[var(--border)]/50 last:border-0 group"
+                className="flex items-center gap-4 py-3 border-b border-(--border)/50 last:border-0 group"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05, duration: 0.22 }}
               >
                 <div
-                  className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                  className="w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ background: dotColor }}
                 />
 
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold truncate">{h.name}</p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
+                  <p className="text-xs text-(--muted-foreground)">
                     {d.toLocaleDateString('th-TH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
 
                 <span
-                  className="text-[11px] font-bold px-2.5 py-1 rounded-full flex-shrink-0"
+                  className="text-[11px] font-bold px-2.5 py-1 rounded-full shrink-0"
                   style={badge}
                 >
                   {daysUntil === 0 ? 'วันนี้' : `อีก ${daysUntil} วัน`}
@@ -355,7 +355,7 @@ export function HolidaysPage() {
 
                 <button
                   onClick={() => setDeleteTarget(h)}
-                  className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--destructive)] hover:bg-[var(--destructive)]/10 transition-all"
+                  className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-(--muted-foreground) hover:text-(--destructive) hover:bg-(--destructive)/10 transition-all"
                 >
                   <Trash2 size={13} />
                 </button>
@@ -375,13 +375,13 @@ export function HolidaysPage() {
               onClick={() => setShowAdd(false)}
             />
             <motion.div
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-[var(--border)] bg-[var(--card)] shadow-2xl"
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-(--border) bg-(--card) shadow-2xl"
               initial={{ opacity: 0, scale: 0.88, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 8 }}
               transition={{ type: 'spring', stiffness: 340, damping: 26 }}
             >
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--accent)] mb-2">เพิ่มวันหยุด</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-(--accent) mb-2">เพิ่มวันหยุด</p>
               <h2 className="text-xl font-black tracking-tight mb-5">
                 {addDate
                   ? new Date(addDate + 'T00:00:00').toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' })

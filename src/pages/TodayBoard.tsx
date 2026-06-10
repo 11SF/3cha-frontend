@@ -75,17 +75,17 @@ export function TodayBoardPage() {
   const isHoliday = todayQ.isSuccess && todayQ.data === null
 
   return (
-    <div className="h-screen flex flex-col bg-[var(--background)] overflow-hidden select-none">
+    <div className="h-screen flex flex-col bg-(--background) overflow-hidden select-none">
 
       {/* Top bar */}
-      <div className="flex items-center justify-between px-10 pt-6 pb-0 flex-shrink-0 z-10">
-        <Link to="/queue" className="flex items-center gap-1.5 text-xs font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors">
+      <div className="flex items-center justify-between px-10 pt-6 pb-0 shrink-0 z-10">
+        <Link to="/queue" className="flex items-center gap-1.5 text-xs font-semibold text-(--muted-foreground) hover:text-(--foreground) transition-colors">
           <ArrowLeft size={13} />
           กลับ
         </Link>
         <div className="text-right">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[var(--muted-foreground)]">{dateLabel}</p>
-          <p className="text-3xl font-mono font-black tabular-nums leading-tight text-[var(--primary)]">{timeLabel}</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-(--muted-foreground)">{dateLabel}</p>
+          <p className="text-3xl font-mono font-black tabular-nums leading-tight text-(--primary)">{timeLabel}</p>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ export function TodayBoardPage() {
         <AnimatePresence mode="wait">
           {todayQ.isLoading && (
             <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div className="w-8 h-8 rounded-full border-2 border-[var(--accent)] border-t-transparent animate-spin" />
+              <div className="w-8 h-8 rounded-full border-2 border-(--accent) border-t-transparent animate-spin" />
             </motion.div>
           )}
 
@@ -126,7 +126,7 @@ export function TodayBoardPage() {
               <p className="font-black tracking-tight" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>
                 วันนี้ไม่มี daily
               </p>
-              <p className="text-lg text-[var(--muted-foreground)]">วันหยุดหรือสุดสัปดาห์</p>
+              <p className="text-lg text-(--muted-foreground)">วันหยุดหรือสุดสัปดาห์</p>
             </motion.div>
           )}
 
@@ -140,7 +140,7 @@ export function TodayBoardPage() {
               transition={{ type: 'spring', stiffness: 260, damping: 22 }}
             >
               {/* Avatar */}
-              <div className="relative flex-shrink-0" style={{ width: 'clamp(7rem, 14vmin, 11rem)', height: 'clamp(7rem, 14vmin, 11rem)' }}>
+              <div className="relative shrink-0" style={{ width: 'clamp(7rem, 14vmin, 11rem)', height: 'clamp(7rem, 14vmin, 11rem)' }}>
                 {isPending && (
                   <>
                     <motion.div
@@ -170,9 +170,9 @@ export function TodayBoardPage() {
 
               {/* Section label */}
               <div className="flex items-center gap-3 w-full max-w-md">
-                <div className="flex-1 h-px bg-[var(--accent)]/30" />
-                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--accent)]">Daily Host</span>
-                <div className="flex-1 h-px bg-[var(--accent)]/30" />
+                <div className="flex-1 h-px bg-(--accent)/30" />
+                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-(--accent)">Daily Host</span>
+                <div className="flex-1 h-px bg-(--accent)/30" />
               </div>
 
               {/* Name */}
@@ -187,7 +187,7 @@ export function TodayBoardPage() {
               </motion.h1>
 
               {/* Date + position */}
-              <div className="flex items-center gap-4 text-[var(--muted-foreground)]">
+              <div className="flex items-center gap-4 text-(--muted-foreground)">
                 <span className="text-base font-medium">{formatDate(entry.queueDate)}</span>
                 {memberCount > 0 && currentIdx > 0 && (
                   <>
@@ -209,7 +209,7 @@ export function TodayBoardPage() {
                       size="sm"
                       onClick={() => skip.mutate(entry.id)}
                       disabled={skip.isPending}
-                      className="gap-1.5 text-xs border-[var(--accent)]/40 text-[var(--accent)] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]"
+                      className="gap-1.5 text-xs border-(--accent)/40 text-(--accent) hover:bg-(--accent)/10 hover:border-(--accent)"
                     >
                       <SkipForward size={13} />
                       ข้าม
@@ -224,7 +224,7 @@ export function TodayBoardPage() {
 
       {/* Bottom bar: next person */}
       <div className={cn(
-        'flex-shrink-0 border-t border-[var(--border)]/60 px-10 py-4 flex items-center gap-3',
+        'shrink-0 border-t border-(--border)/60 px-10 py-4 flex items-center gap-3',
         !nextDayMember && 'opacity-0 pointer-events-none'
       )}>
         {nextDayMember && (
@@ -234,17 +234,17 @@ export function TodayBoardPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.3 }}
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">ถัดไป</span>
-            <div className="w-px h-4 bg-[var(--border)]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-(--muted-foreground)">ถัดไป</span>
+            <div className="w-px h-4 bg-(--border)" />
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0"
               style={{ backgroundColor: nextDayMember.avatarColor }}
             >
               {nextDayMember.name.split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2)}
             </div>
             <span className="font-semibold text-sm">{nextDayMember.name}</span>
-            <span className="text-[var(--muted-foreground)] text-sm select-none">·</span>
-            <span className="text-sm text-[var(--muted-foreground)]">{nextDayLabel}</span>
+            <span className="text-(--muted-foreground) text-sm select-none">·</span>
+            <span className="text-sm text-(--muted-foreground)">{nextDayLabel}</span>
           </motion.div>
         )}
       </div>

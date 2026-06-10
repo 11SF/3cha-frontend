@@ -69,7 +69,7 @@ function AvatarCircle({
     'w-12 h-12 text-base'
 
   return (
-    <div className={cn('relative flex-shrink-0', sizeClass)}>
+    <div className={cn('relative shrink-0', sizeClass)}>
       {pulse && (
         <>
           <motion.div
@@ -100,12 +100,12 @@ function SectionDivider({ label, accent = false }: { label: string; accent?: boo
   return (
     <div className="flex items-center gap-3 py-5">
       <span className={cn(
-        'text-[10px] font-black uppercase tracking-[0.22em] flex-shrink-0',
-        accent ? 'text-[var(--accent)]' : 'text-[var(--muted-foreground)]'
+        'text-[10px] font-black uppercase tracking-[0.22em] shrink-0',
+        accent ? 'text-(--accent)' : 'text-(--muted-foreground)'
       )}>
         {label}
       </span>
-      <div className={cn('flex-1 h-px', accent ? 'bg-[var(--accent)]/25' : 'bg-[var(--border)]')} />
+      <div className={cn('flex-1 h-px', accent ? 'bg-(--accent)/25' : 'bg-(--border)')} />
     </div>
   )
 }
@@ -124,15 +124,15 @@ function HistoryItem({ entry, index }: { entry: QueueEntry; index: number }) {
   return (
     <motion.div
       variants={historyItemVariant}
-      className="flex items-center gap-4 py-3 border-b border-[var(--border)]/50 last:border-0"
+      className="flex items-center gap-4 py-3 border-b border-(--border)/50 last:border-0"
     >
-      <span className="text-[11px] font-mono tabular-nums text-[var(--muted-foreground)]/40 w-5 flex-shrink-0 select-none">
+      <span className="text-[11px] font-mono tabular-nums text-(--muted-foreground)/40 w-5 shrink-0 select-none">
         {String(index).padStart(2, '0')}
       </span>
       <AvatarCircle name={entry.memberName} color={entry.avatarColor} size="sm" />
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold truncate">{entry.memberName}</p>
-        <p className="text-xs text-[var(--muted-foreground)]">{formatDate(entry.queueDate)}</p>
+        <p className="text-xs text-(--muted-foreground)">{formatDate(entry.queueDate)}</p>
       </div>
       <StatusBadge status={entry.status} />
     </motion.div>
@@ -201,7 +201,7 @@ export function QueueBoardPage() {
   if (todayQ.isLoading) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-3.5rem)]">
-        <RefreshCw size={24} className="animate-spin text-[var(--muted-foreground)]" />
+        <RefreshCw size={24} className="animate-spin text-(--muted-foreground)" />
       </div>
     )
   }
@@ -210,20 +210,20 @@ export function QueueBoardPage() {
     const msg = (todayQ.error as any)?.response?.data?.message ?? 'ไม่สามารถโหลดข้อมูลได้'
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100vh-3.5rem)] gap-3">
-        <p className="text-[var(--muted-foreground)]">{msg}</p>
+        <p className="text-(--muted-foreground)">{msg}</p>
         <Button variant="outline" onClick={() => todayQ.refetch()}>ลองใหม่</Button>
       </div>
     )
   }
 
   const RightPanel = (
-    <div className="lg:flex-[2] border-t lg:border-t-0 lg:border-l border-[var(--border)]/60 bg-[var(--muted)]/20 flex flex-col lg:h-[calc(100vh-3.5rem)] lg:overflow-hidden">
+    <div className="lg:flex-[2] border-t lg:border-t-0 lg:border-l border-(--border)/60 bg-(--muted)/20 flex flex-col lg:h-[calc(100vh-3.5rem)] lg:overflow-hidden">
       {/* Right header */}
-      <div className="px-8 pt-8 pb-0 flex items-start justify-between flex-shrink-0">
+      <div className="px-8 pt-8 pb-0 flex items-start justify-between shrink-0">
         <div>
           <h1 className="text-xl font-extrabold tracking-tight">Daily Queue</h1>
           {memberCount > 0 && currentIdx > 0 && (
-            <p className="text-xs text-[var(--muted-foreground)] mt-0.5 font-medium">
+            <p className="text-xs text-(--muted-foreground) mt-0.5 font-medium">
               คิวที่ {currentIdx} / {memberCount}
             </p>
           )}
@@ -233,7 +233,7 @@ export function QueueBoardPage() {
             href="/today"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 h-8 px-3 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
+            className="inline-flex items-center gap-1.5 h-8 px-3 rounded-md text-xs font-medium text-(--muted-foreground) hover:text-(--foreground) hover:bg-(--muted) transition-colors"
           >
             <Monitor size={13} />
             Kiosk
@@ -242,7 +242,7 @@ export function QueueBoardPage() {
             variant="ghost"
             size="sm"
             onClick={() => setShowResetConfirm(true)}
-            className="gap-1.5 text-[var(--muted-foreground)] hover:text-[var(--destructive)] text-xs"
+            className="gap-1.5 text-(--muted-foreground) hover:text-(--destructive) text-xs"
           >
             <RotateCcw size={13} />
             Reset
@@ -252,7 +252,7 @@ export function QueueBoardPage() {
 
       {/* Confluence CTA */}
       {entry?.confluenceUrl && (
-        <div className="px-8 pt-4 flex-shrink-0">
+        <div className="px-8 pt-4 shrink-0">
           <a
             href={entry.confluenceUrl}
             target="_blank"
@@ -283,11 +283,11 @@ export function QueueBoardPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.25 }}
             >
-              <ChevronRight size={15} className="text-[var(--muted-foreground)] flex-shrink-0" />
+              <ChevronRight size={15} className="text-(--muted-foreground) shrink-0" />
               <AvatarCircle name={nextDayMember.name} color={nextDayMember.avatarColor} size="sm" />
               <span className="font-semibold text-sm">{nextDayMember.name}</span>
-              <span className="text-[var(--muted-foreground)] text-sm select-none">·</span>
-              <span className="text-sm text-[var(--muted-foreground)]">{nextDayLabel}</span>
+              <span className="text-(--muted-foreground) text-sm select-none">·</span>
+              <span className="text-sm text-(--muted-foreground)">{nextDayLabel}</span>
             </motion.div>
           </>
         ) : (
@@ -320,8 +320,8 @@ export function QueueBoardPage() {
           <div className="relative z-10 text-center space-y-3">
             <span className="text-6xl block">🎉</span>
             <p className="font-black text-3xl tracking-tight">วันนี้ไม่มี daily</p>
-            <p className="text-sm text-[var(--muted-foreground)]">วันหยุดหรือสุดสัปดาห์</p>
-            <p className="text-2xl font-mono font-bold text-[var(--accent)] pt-4">{timeLabel}</p>
+            <p className="text-sm text-(--muted-foreground)">วันหยุดหรือสุดสัปดาห์</p>
+            <p className="text-2xl font-mono font-bold text-(--accent) pt-4">{timeLabel}</p>
           </div>
         </div>
         {RightPanel}
@@ -352,19 +352,19 @@ export function QueueBoardPage() {
         </div>
 
         {/* Date + live clock */}
-        <div className="relative z-10 flex items-baseline justify-between flex-shrink-0">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+        <div className="relative z-10 flex items-baseline justify-between shrink-0">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-(--muted-foreground)">
             {dateLabel}
           </p>
-          <p className="text-sm font-mono font-bold tabular-nums text-[var(--muted-foreground)]/70">
+          <p className="text-sm font-mono font-bold tabular-nums text-(--muted-foreground)/70">
             {timeLabel}
           </p>
         </div>
 
         {/* Section label */}
         <div className="relative z-10 flex items-center gap-3 mt-6 mb-8">
-          <span className="text-[10px] font-black uppercase tracking-[0.22em] text-[var(--accent)]">Daily Host</span>
-          <div className="flex-1 h-px bg-[var(--accent)]/25" />
+          <span className="text-[10px] font-black uppercase tracking-[0.22em] text-(--accent)">Daily Host</span>
+          <div className="flex-1 h-px bg-(--accent)/25" />
         </div>
 
         {/* Main hero content */}
@@ -392,7 +392,7 @@ export function QueueBoardPage() {
                 >
                   {entry.memberName}
                 </motion.h2>
-                <p className="text-sm text-[var(--muted-foreground)] mt-3 font-medium">
+                <p className="text-sm text-(--muted-foreground) mt-3 font-medium">
                   {formatDate(entry.queueDate)}
                 </p>
                 <div className="flex items-center gap-3 mt-4 flex-wrap">
@@ -403,7 +403,7 @@ export function QueueBoardPage() {
                       size="sm"
                       onClick={() => skip.mutate(entry.id)}
                       disabled={skip.isPending}
-                      className="gap-1.5 text-xs border-[var(--accent)]/40 text-[var(--accent)] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)]"
+                      className="gap-1.5 text-xs border-(--accent)/40 text-(--accent) hover:bg-(--accent)/10 hover:border-(--accent)"
                     >
                       <SkipForward size={13} />
                       ข้าม
@@ -431,14 +431,14 @@ export function QueueBoardPage() {
               onClick={() => setShowResetConfirm(false)}
             />
             <motion.div
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm bg-[var(--card)] rounded-2xl shadow-xl p-6 border border-[var(--border)]"
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm bg-(--card) rounded-2xl shadow-xl p-6 border border-(--border)"
               initial={{ opacity: 0, scale: 0.92, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 4 }}
               transition={{ type: 'spring', stiffness: 320, damping: 24 }}
             >
               <h2 className="text-lg font-black tracking-tight">Reset Queue?</h2>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1.5">
+              <p className="text-sm text-(--muted-foreground) mt-1.5">
                 ประวัติทั้งหมดจะถูกล้างและ queue จะเริ่มใหม่ตั้งแต่คนแรก
               </p>
               <div className="flex gap-2 mt-5 justify-end">
@@ -454,7 +454,7 @@ export function QueueBoardPage() {
                   size="sm"
                   onClick={() => reset.mutate()}
                   disabled={reset.isPending}
-                  className="bg-[var(--destructive)] text-white hover:opacity-90"
+                  className="bg-(--destructive) text-white hover:opacity-90"
                 >
                   <RotateCcw size={13} />
                   Reset เลย

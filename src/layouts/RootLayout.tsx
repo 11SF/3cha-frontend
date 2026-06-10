@@ -12,11 +12,11 @@ const navItems = [
 export function RootLayout() {
   const location = useLocation()
   return (
-    <div className="min-h-screen bg-[var(--background)]">
-      <header className="border-b border-[var(--border)] bg-[var(--card)]/80 backdrop-blur-sm sticky top-0 z-10">
+    <div className="min-h-screen bg-(--background)">
+      <header className="border-b border-(--border) bg-(--card)/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
           <motion.span
-            className="font-extrabold text-lg tracking-tight text-[var(--primary)]"
+            className="font-extrabold text-lg tracking-tight text-(--primary)"
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -30,12 +30,12 @@ export function RootLayout() {
                 to={to}
                 className={cn(
                   'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200',
-                  'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]'
+                  'text-(--muted-foreground) hover:text-(--foreground) hover:bg-(--muted)'
                 )}
                 activeProps={{
                   className: cn(
                     'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200',
-                    'bg-[var(--accent)]/15 text-[var(--accent)]'
+                    'bg-(--accent)/15 text-(--accent)'
                   ),
                 }}
               >

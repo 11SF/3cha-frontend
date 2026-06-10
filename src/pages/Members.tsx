@@ -112,7 +112,7 @@ function SortableMemberCard({
           <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
             <motion.button
               onClick={(e) => { e.stopPropagation(); onDelete(member) }}
-              className="w-6 h-6 rounded-lg flex items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--destructive)] hover:bg-[var(--destructive)]/10 transition-colors"
+              className="w-6 h-6 rounded-lg flex items-center justify-center text-(--muted-foreground) hover:text-(--destructive) hover:bg-(--destructive)/10 transition-colors"
               whileTap={{ scale: 0.82 }}
             >
               <Trash2 size={11} />
@@ -126,7 +126,7 @@ function SortableMemberCard({
             className="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-25 hover:!opacity-55 transition-opacity cursor-grab active:cursor-grabbing touch-none"
             aria-label="ลากเพื่อเรียงลำดับ"
           >
-            <GripVertical size={13} className="text-[var(--muted-foreground)]" />
+            <GripVertical size={13} className="text-(--muted-foreground)" />
           </div>
         </motion.div>
       </div>
@@ -209,7 +209,7 @@ export function MembersPage() {
       >
         <h1 className="text-4xl font-black tracking-tight leading-none">ทีมเรา</h1>
         {members.length > 0 && (
-          <p className="text-sm text-[var(--muted-foreground)] mt-2 font-semibold">
+          <p className="text-sm text-(--muted-foreground) mt-2 font-semibold">
             {members.length} คนในทีม
           </p>
         )}
@@ -218,7 +218,7 @@ export function MembersPage() {
       {/* ── Grid ── */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 rounded-full border-2 border-[var(--accent)] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-(--accent) border-t-transparent animate-spin" />
         </div>
       ) : (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -257,10 +257,10 @@ export function MembersPage() {
                   <Plus
                     size={26}
                     strokeWidth={1.5}
-                    className="group-hover:text-[var(--accent)] transition-colors"
+                    className="group-hover:text-(--accent) transition-colors"
                   />
                 </div>
-                <p className="text-sm font-bold text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors text-center">
+                <p className="text-sm font-bold text-(--muted-foreground) group-hover:text-(--accent) transition-colors text-center">
                   เพิ่มสมาชิก
                 </p>
               </motion.button>
@@ -279,13 +279,13 @@ export function MembersPage() {
               onClick={() => setShowAdd(false)}
             />
             <motion.div
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-[var(--border)] bg-[var(--card)] shadow-2xl"
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-(--border) bg-(--card) shadow-2xl"
               initial={{ opacity: 0, scale: 0.88, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 8 }}
               transition={{ type: 'spring', stiffness: 340, damping: 26 }}
             >
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--accent)] mb-1">สมาชิกใหม่</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-(--accent) mb-1">สมาชิกใหม่</p>
               <h2 className="text-xl font-black tracking-tight mb-5">ใครเข้าทีมบ้าง?</h2>
 
               <div className="space-y-4">
@@ -301,14 +301,14 @@ export function MembersPage() {
                 />
 
                 <div>
-                  <p className="text-xs text-[var(--muted-foreground)] mb-2.5 font-semibold">สีอวาตาร์</p>
+                  <p className="text-xs text-(--muted-foreground) mb-2.5 font-semibold">สีอวาตาร์</p>
                   <div className="flex gap-2 flex-wrap">
                     {AVATAR_COLORS.map(c => (
                       <motion.button
                         key={c}
                         type="button"
                         onClick={() => setColor(c)}
-                        className="w-8 h-8 rounded-full relative flex-shrink-0"
+                        className="w-8 h-8 rounded-full relative shrink-0"
                         style={{ backgroundColor: c }}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.9 }}
@@ -334,7 +334,7 @@ export function MembersPage() {
                     className="flex items-center gap-3 mt-4 py-3 px-4 rounded-2xl"
                     style={{ backgroundColor: `${color}12`, border: `1px solid ${color}2e` }}
                   >
-                    <div className="relative flex-shrink-0 w-11 h-11">
+                    <div className="relative shrink-0 w-11 h-11">
                       <div
                         className="absolute inset-0 rounded-full"
                         style={{ backgroundColor: color, filter: 'blur(6px)', opacity: 0.42, transform: 'scale(1.3)' }}
@@ -384,18 +384,18 @@ export function MembersPage() {
               onClick={() => setDeleteTarget(null)}
             />
             <motion.div
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-[var(--border)] bg-[var(--card)] shadow-2xl"
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[calc(100vw-2rem)] max-w-sm p-6 rounded-3xl border border-(--border) bg-(--card) shadow-2xl"
               initial={{ opacity: 0, scale: 0.88, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 8 }}
               transition={{ type: 'spring', stiffness: 340, damping: 26 }}
             >
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--destructive)] mb-3">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-(--destructive) mb-3">
                 ลบสมาชิก
               </p>
 
               <div className="flex items-center gap-4 mb-5">
-                <div className="relative flex-shrink-0 w-14 h-14">
+                <div className="relative shrink-0 w-14 h-14">
                   <div
                     className="absolute inset-0 rounded-full"
                     style={{
@@ -414,7 +414,7 @@ export function MembersPage() {
                 </div>
                 <div>
                   <h2 className="text-xl font-black tracking-tight">{deleteTarget.name}</h2>
-                  <p className="text-sm text-[var(--muted-foreground)] mt-0.5">จะถูกลบออกจากทีม</p>
+                  <p className="text-sm text-(--muted-foreground) mt-0.5">จะถูกลบออกจากทีม</p>
                 </div>
               </div>
 
@@ -428,7 +428,7 @@ export function MembersPage() {
                   ยกเลิก
                 </Button>
                 <Button
-                  className="flex-1 gap-1.5 rounded-xl bg-[var(--destructive)] text-white hover:opacity-90"
+                  className="flex-1 gap-1.5 rounded-xl bg-(--destructive) text-white hover:opacity-90"
                   onClick={() => remove.mutate(deleteTarget.id)}
                   disabled={remove.isPending}
                 >
