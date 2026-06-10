@@ -117,7 +117,7 @@ const historyVariants = {
 
 const historyItemVariant = {
   hidden: { opacity: 0, x: -12 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.22, ease: 'easeOut' } },
+  show: { opacity: 1, x: 0, transition: { duration: 0.22, ease: 'easeOut' as const } },
 }
 
 function HistoryItem({ entry, index }: { entry: QueueEntry; index: number }) {
