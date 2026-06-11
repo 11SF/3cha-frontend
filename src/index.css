@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -21,6 +22,10 @@
   --radius: 0.75rem;
 }
 
+
+.font-orbitron {
+  font-family: 'Orbitron', monospace;
+}
 
 * {
   border-color: var(--border);

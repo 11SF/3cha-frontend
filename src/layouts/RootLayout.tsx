@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 const navItems = [
   { to: '/queue', label: 'Queue Board', icon: LayoutDashboard },
-  { to: '/members', label: 'Members', icon: Users },
+  { to: '/members', label: 'Party', icon: Users },
   { to: '/holidays', label: 'Holidays', icon: CalendarOff },
 ] as const
 
@@ -46,7 +46,7 @@ export function RootLayout() {
           </nav>
         </div>
       </header>
-      <main className={location.pathname === '/queue' ? 'w-full' : 'max-w-3xl mx-auto px-4 py-8'}>
+      <main className={['/queue', '/members'].includes(location.pathname) ? 'w-full' : 'max-w-3xl mx-auto px-4 py-8'}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
