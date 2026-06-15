@@ -263,7 +263,7 @@ export function QueueBoardPage() {
           <>
             <SectionDivider label="ประวัติย้อนหลัง" />
             <motion.div variants={historyVariants} initial="hidden" animate="show">
-              {historyItems.slice(0, 20).map((e, i) => (
+              {historyItems.map((e, i) => (
                 <HistoryItem key={e.id} entry={e} index={i + 1} />
               ))}
             </motion.div>
