@@ -2,6 +2,12 @@ import { apiClient } from './client'
 
 export type QueueStatus = 'pending' | 'done' | 'skipped'
 
+export interface QueueNext {
+  memberName: string
+  avatarColor: string
+  queueDate: string
+}
+
 export interface QueueEntry {
   id: string
   queueDate: string
@@ -10,6 +16,9 @@ export interface QueueEntry {
   memberName: string
   avatarColor: string
   confluenceUrl?: string
+  position: number
+  totalMembers: number
+  next?: QueueNext
 }
 
 export const queueApi = {

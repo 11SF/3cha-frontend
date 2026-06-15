@@ -3,28 +3,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SkipForward, RefreshCw, RotateCcw, ChevronRight, Monitor, ExternalLink } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { queueApi, type QueueEntry } from '@/api/queue'
-import { memberApi, type Member } from '@/api/member'
-import { holidayApi } from '@/api/holiday'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
-
-function nextMember(members: Member[], currentMemberId: string): Member | undefined {
-  if (!members.length) return undefined
-  const idx = members.findIndex(m => m.id === currentMemberId)
-  return members[(idx + 1) % members.length]
-}
-
-function nextWorkingDay(from: Date, holidaySet: Set<string>): Date | null {
-  const d = new Date(from)
-  for (let i = 0; i < 60; i++) {
-    d.setDate(d.getDate() + 1)
-    const wd = d.getDay()
-    const str = d.toISOString().split('T')[0]
-    if (wd !== 0 && wd !== 6 && !holidaySet.has(str)) return new Date(d)
-  }
-  return null
-}
 
 function formatDate(dateStr: string) {
   return new Date(dateStr + 'T00:00:00').toLocaleDateString('th-TH', {
@@ -155,16 +136,6 @@ export function QueueBoardPage() {
     queryFn: queueApi.list,
   })
 
-  const membersQ = useQuery({
-    queryKey: ['members'],
-    queryFn: memberApi.list,
-  })
-
-  const holidaysQ = useQuery({
-    queryKey: ['holidays'],
-    queryFn: holidayApi.list,
-  })
-
   const skip = useMutation({
     mutationFn: queueApi.skip,
     onSuccess: () => qc.invalidateQueries({ queryKey: ['queue'] }),
@@ -181,19 +152,13 @@ export function QueueBoardPage() {
   const entry = todayQ.data
   const isPending = entry?.status === 'pending'
 
-  const holidaySet = new Set((holidaysQ.data ?? []).map(h => h.holidayDate))
-  const nextDay = nextWorkingDay(new Date(), holidaySet)
-  const activeMembers = (membersQ.data ?? []).filter(m => m.isActive)
-  const nextDayMember = (entry && nextDay) ? nextMember(activeMembers, entry.memberId) : undefined
-  const nextDayLabel = nextDay
-    ? nextDay.toLocaleDateString('th-TH', { weekday: 'long', month: 'short', day: 'numeric' })
+  const next = entry?.next
+  const nextDayLabel = next
+    ? new Date(next.queueDate + 'T00:00:00').toLocaleDateString('th-TH', { weekday: 'long', month: 'short', day: 'numeric' })
     : null
 
   const todayStr = new Date().toISOString().split('T')[0]
   const historyItems = (historyQ.data ?? []).filter(e => e.queueDate !== todayStr)
-
-  const currentIdx = entry ? activeMembers.findIndex(m => m.id === entry.memberId) + 1 : 0
-  const memberCount = activeMembers.length
 
   const dateLabel = now.toLocaleDateString('th-TH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
   const timeLabel = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
@@ -222,9 +187,9 @@ export function QueueBoardPage() {
       <div className="px-8 pt-8 pb-0 flex items-start justify-between shrink-0">
         <div>
           <h1 className="text-xl font-extrabold tracking-tight">Daily Queue</h1>
-          {memberCount > 0 && currentIdx > 0 && (
+          {entry && entry.totalMembers > 0 && entry.position > 0 && (
             <p className="text-xs text-(--muted-foreground) mt-0.5 font-medium">
-              คิวที่ {currentIdx} / {memberCount}
+              คิวที่ {entry.position} / {entry.totalMembers}
             </p>
           )}
         </div>
@@ -274,7 +239,7 @@ export function QueueBoardPage() {
 
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto px-8 pb-8">
-        {nextDayMember && nextDayLabel ? (
+        {next && nextDayLabel ? (
           <>
             <SectionDivider label="ถัดไป" />
             <motion.div
@@ -284,8 +249,8 @@ export function QueueBoardPage() {
               transition={{ delay: 0.2, duration: 0.25 }}
             >
               <ChevronRight size={15} className="text-(--muted-foreground) shrink-0" />
-              <AvatarCircle name={nextDayMember.name} color={nextDayMember.avatarColor} size="sm" />
-              <span className="font-semibold text-sm">{nextDayMember.name}</span>
+              <AvatarCircle name={next.memberName} color={next.avatarColor} size="sm" />
+              <span className="font-semibold text-sm">{next.memberName}</span>
               <span className="text-(--muted-foreground) text-sm select-none">·</span>
               <span className="text-sm text-(--muted-foreground)">{nextDayLabel}</span>
             </motion.div>
