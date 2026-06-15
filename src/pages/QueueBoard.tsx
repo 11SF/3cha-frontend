@@ -157,7 +157,7 @@ export function QueueBoardPage() {
     ? new Date(next.queueDate + 'T00:00:00').toLocaleDateString('th-TH', { weekday: 'long', month: 'short', day: 'numeric' })
     : null
 
-  const todayStr = new Date().toISOString().split('T')[0]
+  const todayStr = new Intl.DateTimeFormat('en-CA').format(new Date())
   const historyItems = (historyQ.data ?? []).filter(e => e.queueDate !== todayStr)
 
   const dateLabel = now.toLocaleDateString('th-TH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
