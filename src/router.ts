@@ -4,6 +4,7 @@ import { QueueBoardPage } from './pages/QueueBoard'
 import { MembersPage } from './pages/Members'
 import { HolidaysPage } from './pages/Holidays'
 import { TodayBoardPage } from './pages/TodayBoard'
+import { TokenUsagePage } from './pages/TokenUsage'
 
 // Root passes through — no layout
 const rootRoute = createRootRoute({ component: Outlet })
@@ -39,6 +40,12 @@ const holidaysRoute = createRoute({
   component: HolidaysPage,
 })
 
+const tokenUsageRoute = createRoute({
+  getParentRoute: () => navRoute,
+  path: '/token-usage',
+  component: TokenUsagePage,
+})
+
 // Standalone display — no nav
 const todayRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -47,7 +54,7 @@ const todayRoute = createRoute({
 })
 
 const routeTree = rootRoute.addChildren([
-  navRoute.addChildren([indexRoute, queueRoute, membersRoute, holidaysRoute]),
+  navRoute.addChildren([indexRoute, queueRoute, membersRoute, holidaysRoute, tokenUsageRoute]),
   todayRoute,
 ])
 
