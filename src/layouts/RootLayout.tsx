@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from '@tanstack/react-router'
-import { Users, LayoutDashboard, CalendarOff, Gauge } from 'lucide-react'
+import { Users, LayoutDashboard, CalendarOff, Gauge, KeyRound } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
@@ -8,6 +8,7 @@ const navItems = [
   { to: '/members', label: 'Party', icon: Users },
   { to: '/holidays', label: 'Holidays', icon: CalendarOff },
   { to: '/token-usage', label: 'Token Usage', icon: Gauge },
+  { to: '/cipher', label: 'Cipher', icon: KeyRound },
 ] as const
 
 export function RootLayout() {
